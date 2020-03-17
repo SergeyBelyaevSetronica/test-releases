@@ -1,10 +1,9 @@
 name: "test-it"
-version: "1.1.0"
+version: "2.0.0"
 usage: "Test integration with Helm"
 description: |-
   This plugin tests helm.
-command: "$HELM_PLUGIN_DIR/bin/test-it-1-0-0.cmd"
-#https://github.com/svdba/test-releases/releases/download/test-it-1.0.0/test-it
+command: "$HELM_PLUGIN_DIR/bin/test-it"
 hooks:
-  install: "cd $HELM_PLUGIN_DIR; chmod +x bin/test-it-1-0-0.cmd"
-  update: "cd $HELM_PLUGIN_DIR; chmod +x bin/test-it-1-0-0.cmd"
+  install: "cd $HELM_PLUGIN_DIR; bash k8s/scripts/pluginctl"
+  update: "cd $HELM_PLUGIN_DIR; bash k8s/scripts/pluginctl"
