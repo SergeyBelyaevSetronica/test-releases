@@ -1,0 +1,18 @@
+#
+# ~ Copyright © 2016-2020 Aram Meem Company Limited.  All Rights Reserved.
+#
+# User-specific stuff:
+.idea/
+nbproject/
+
+# Terraform
+*\.tfstate*
+\.terraform/
+*tfplan*
+*plan.out*
+provider\.auto\.tfvars
+terraform.tfvars
+
+# binary and temp
+bin/*
+tmp
