@@ -8,11 +8,17 @@ echo "Downloading and installing ${bin_name} v${version} ..."
 mkdir -p ./bin/ ./tmp/v${version}/
 cd ./tmp/v${version}/
 
-binary_file=${bin_name}-${os,,}-amd64
+binary_file=""
+if [ "$(uname)" == "Darwin" ]; then
+    binary_file="${bin_name}-darwin-amd64"
+elif [ "$(uname)" == "Linux" ] ; then
+    binary_file="${bin_name}-linux-amd64"
+fi
+
 binary_url=https://amhub.s3.eu-central-1.amazonaws.com/distr/${bin_name}/archive/${version}/${binary_file}.tar.gz
 curl -sSL ${binary_url} -o ${binary_file}.tar.gz
 curl -sSL ${binary_url}.sha256sum -o ${binary_file}.tar.gz.sha256sum
-sha256sum -c ${binary_file}.tar.gz.sha256sum
+which sha256sum >/dev/null && sha256sum -c ${binary_file}.tar.gz.sha256sum
 tar -zxC ../../bin/ -f ${binary_file}.tar.gz
 mv ../../bin/${binary_file} ../../bin/${bin_name}
 chmod +x ../../bin/${bin_name}
