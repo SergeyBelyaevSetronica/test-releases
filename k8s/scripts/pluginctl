@@ -9,16 +9,25 @@ mkdir -p ./bin/ ./tmp/v${version}/
 cd ./tmp/v${version}/
 
 binary_file=""
+archext="tar.gz"
 if [ "$(uname)" == "Darwin" ]; then
     binary_file="${bin_name}-darwin-amd64"
 elif [ "$(uname)" == "Linux" ] ; then
     binary_file="${bin_name}-linux-amd64"
+else
+    archext="zip"
+    binary_file="${bin_name}"
 fi
 
-binary_url=https://amhub.s3.eu-central-1.amazonaws.com/distr/${bin_name}/archive/${version}/${binary_file}.tar.gz
-curl -sSL ${binary_url} -o ${binary_file}.tar.gz
-curl -sSL ${binary_url}.sha256sum -o ${binary_file}.tar.gz.sha256sum
-which sha256sum >/dev/null && sha256sum -c ${binary_file}.tar.gz.sha256sum
-tar -zxC ../../bin/ -f ${binary_file}.tar.gz
-mv ../../bin/${binary_file} ../../bin/${bin_name}
-chmod +x ../../bin/${bin_name}
+binary_url=https://amhub.s3.eu-central-1.amazonaws.com/distr/${bin_name}/archive/${version}/${binary_file}.${archext}
+curl -sSL ${binary_url} -o ${binary_file}.${archext}
+curl -sSL ${binary_url}.sha256sum -o ${binary_file}.${archext}.sha256sum
+which sha256sum >/dev/null && sha256sum -c ${binary_file}.${archext}.sha256sum
+if [ ${archext} = "zip" ]; then
+  unzip ${binary_file}.${archext}
+  mv ${binary_file}.exe ../../bin/${bin_name}.exe
+else
+  tar -zxC ../../bin/ -f ${binary_file}.${archext}
+  mv ../../bin/${binary_file} ../../bin/${bin_name}.exe
+  chmod +x ../../bin/${bin_name}.exe
+fi
