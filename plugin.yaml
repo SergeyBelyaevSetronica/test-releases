@@ -3,7 +3,7 @@ version: "1.0.0"
 usage: "Integreate k8s-io extension with Helm"
 description: |-
   This plugin provides install/upgrade helm releases.
-command: "$HELM_PLUGIN_DIR/bin/k8s-io"
+command: "$HELM_PLUGIN_DIR/bin/k8s-io.exe"
 hooks:
   install: "cd $HELM_PLUGIN_DIR; bash k8s/scripts/pluginctl k8s-io"
   update: "cd $HELM_PLUGIN_DIR; bash k8s/scripts/pluginctl k8s-io"
