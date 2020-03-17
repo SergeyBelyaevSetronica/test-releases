@@ -1,6 +1,7 @@
 name: "test-it"
-version: "0.0.1"
+version: "1.0.0"
 usage: "Test integration with Helm"
 description: |-
   This plugin tests helm.
-command: "$HELM_PLUGIN_DIR/test-it"
+command: "$HELM_PLUGIN_DIR/bin/test-it-1-0-0.cmd"
+#https://github.com/svdba/test-releases/releases/download/test-it-1.0.0/test-it
